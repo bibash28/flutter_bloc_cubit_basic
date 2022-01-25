@@ -17,14 +17,14 @@ void main() {
     );
 
     blocTest<ThemeModeCubit, ThemeMode>(
-      'Change to dark theme when LightTheme is called',
+      'Change to dark theme when DarkTheme is called',
       build: () => ThemeModeCubit(),
       act: (cubit) => cubit.setDarkTheme(),
       expect: () => [equals(ThemeMode.dark)],
     );
 
     blocTest<ThemeModeCubit, ThemeMode>(
-      'Change to system theme when LightTheme is called',
+      'Change to system theme when SystemTheme is called',
       build: () => ThemeModeCubit(),
       act: (cubit) => cubit.setSystemTheme(),
       expect: () => [equals(ThemeMode.system)],
