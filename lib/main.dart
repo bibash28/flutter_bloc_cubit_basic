@@ -1,7 +1,6 @@
 import 'package:basic_cubit/app/app.dart';
-import 'package:flutter/material.dart';
+import 'package:basic_cubit/bootstrap.dart';
 
 void main() {
-  runApp(const App());
+  bootstrap(() => const App());
 }
-
