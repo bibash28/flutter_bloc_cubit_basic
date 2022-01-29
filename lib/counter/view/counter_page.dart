@@ -1,5 +1,6 @@
 import 'package:basic_cubit/app/app.dart';
 import 'package:basic_cubit/counter/counter.dart';
+import 'package:basic_cubit/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,7 @@ class CounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cubit Test'),
+        title: Text(context.l10n.title),
         actions: const <Widget>[
           IconThemeSwitch(),
         ],
@@ -34,8 +35,8 @@ class CounterView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              '${context.l10n.tap_message}:',
             ),
             BlocBuilder<CounterCubit, CounterState>(
               builder: (context, state) {
