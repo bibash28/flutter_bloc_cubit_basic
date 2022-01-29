@@ -2,29 +2,30 @@ import 'package:basic_cubit/counter/counter.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class MockCounterCubit extends MockCubit<int> implements CounterCubit {}
+class MockCounterCubit extends MockCubit<CounterState> implements CounterCubit {
+}
 
 void main() {
   group('Counter Cubit', () {
     test("Initial State is 0", () {
-      expect(CounterCubit().state, equals(0));
+      expect(CounterCubit().state, equals(const CounterInitial(count: 0)));
     });
 
-    blocTest<CounterCubit, int>(
+    blocTest<CounterCubit, CounterState>(
       'emit[1] when increment is called',
       build: () => CounterCubit(),
       act: (cubit) => cubit.increment(),
-      expect: () => [equals(1)],
+      expect: () => [equals(const CounterIncreased(count: 1))],
     );
 
-    blocTest<CounterCubit, int>(
-      'emit-[-1] when decrement is called',
+    blocTest<CounterCubit, CounterState>(
+      'emit[-1] when decrement is called',
       build: () => CounterCubit(),
       act: (cubit) => cubit.decrement(),
-      expect: () => [equals(-1)],
+      expect: () => [equals(const CounterDecreased(count: -1))],
     );
 
-    blocTest<CounterCubit, int>(
+    blocTest<CounterCubit, CounterState>(
       'Sequence of states',
       build: () => CounterCubit(),
       act: (cubit) => cubit
@@ -32,20 +33,33 @@ void main() {
         ..increment()
         ..increment()
         ..decrement(),
-      expect: () => [
-        equals(1),
-        equals(2),
-        equals(3),
-        equals(2),
+      expect: () => const [
+        CounterIncreased(count: 1),
+        CounterIncreased(count: 2),
+        CounterIncreased(count: 3),
+        CounterDecreased(count: 2),
       ],
     );
-  });
 
-  group('whenListen', () {
     test("let's mock the CounterCubit's stream", () {
       final cubit = MockCounterCubit();
-      whenListen(cubit, Stream.fromIterable([0, 1, 2, 3]));
-      expectLater(cubit.stream, emitsInOrder(<int>[0, 1, 2, 3]));
+      whenListen(
+          cubit,
+          Stream.fromIterable([
+            const CounterInitial(count: 0),
+            const CounterIncreased(count: 1),
+            const CounterDecreased(count: 0)
+          ]));
+      expectLater(
+        cubit.stream,
+        emitsInOrder(
+          <CounterState>[
+            const CounterInitial(count: 0),
+            const CounterIncreased(count: 1),
+            const CounterDecreased(count: 0)
+          ],
+        ),
+      );
     });
   });
 }

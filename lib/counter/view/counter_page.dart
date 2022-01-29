@@ -1,4 +1,4 @@
-import 'package:basic_cubit/app/view/icon_theme_switch.dart';
+import 'package:basic_cubit/app/app.dart';
 import 'package:basic_cubit/counter/counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +8,11 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CounterCubit(state: 0),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeModeCubit>(create: (_) => ThemeModeCubit()),
+        BlocProvider<CounterCubit>(create: (_) => CounterCubit()),
+      ],
       child: const CounterView(),
     );
   }
@@ -20,7 +23,6 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((CounterCubit cubit) => cubit.state);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Cubit Test"),
@@ -35,10 +37,12 @@ class CounterView extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$state',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            BlocBuilder<CounterCubit, CounterState>(builder: (context, state) {
+              return Text(
+                '${state.count}',
+                style: Theme.of(context).textTheme.headline4,
+              );
+            }),
           ],
         ),
       ),
