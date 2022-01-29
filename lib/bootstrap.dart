@@ -33,7 +33,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             ? HydratedStorage.webStorageDirectory
             : await getTemporaryDirectory(),
       );
-      HydratedBlocOverrides.runZoned(
+      await HydratedBlocOverrides.runZoned(
         () async => runApp(await builder()),
         blocObserver: AppBlocObserver(),
         storage: storage,

@@ -25,7 +25,7 @@ class CounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cubit Test"),
+        title: const Text('Cubit Test'),
         actions: const <Widget>[
           IconThemeSwitch(),
         ],
@@ -37,12 +37,14 @@ class CounterView extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder<CounterCubit, CounterState>(builder: (context, state) {
-              return Text(
-                '${state.count}',
-                style: Theme.of(context).textTheme.headline4,
-              );
-            }),
+            BlocBuilder<CounterCubit, CounterState>(
+              builder: (context, state) {
+                return Text(
+                  '${state.count}',
+                  style: Theme.of(context).textTheme.headline4,
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('App Theme Cubit', () {
-    test("Initial State is Light mode", () {
+    test('Initial State is Light mode', () {
       expect(ThemeModeCubit().state, equals(ThemeMode.light));
     });
 

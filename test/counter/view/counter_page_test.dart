@@ -31,7 +31,7 @@ void main() {
       counterCubit = MockCounterCubit();
     });
 
-    testWidgets("Renders current count", (tester) async {
+    testWidgets('Renders current count', (tester) async {
       const state = CounterInitial(count: 32);
       when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
@@ -46,7 +46,7 @@ void main() {
       expect(find.text('${state.count}'), findsOneWidget);
     });
 
-    testWidgets("Calls increment when increment button is required",
+    testWidgets('Calls increment when increment button is required',
         (tester) async {
       when(() => counterCubit.state).thenReturn(const CounterInitial(count: 0));
       when(() => counterCubit.increment()).thenReturn(null);

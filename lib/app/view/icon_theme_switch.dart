@@ -8,16 +8,17 @@ class IconThemeSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeModeCubit, ThemeMode>(
-        builder: (context, themeSwitchState) {
-      return themeSwitchState == ThemeMode.light
-          ? IconButton(
-              icon: const Icon(Icons.dark_mode),
-              onPressed: () => context.read<ThemeModeCubit>().setDarkTheme(),
-            )
-          : IconButton(
-              icon: const Icon(Icons.light_mode),
-              onPressed: () => context.read<ThemeModeCubit>().setLightTheme(),
-            );
-    });
+      builder: (context, themeSwitchState) {
+        return themeSwitchState == ThemeMode.light
+            ? IconButton(
+                icon: const Icon(Icons.dark_mode),
+                onPressed: () => context.read<ThemeModeCubit>().setDarkTheme(),
+              )
+            : IconButton(
+                icon: const Icon(Icons.light_mode),
+                onPressed: () => context.read<ThemeModeCubit>().setLightTheme(),
+              );
+      },
+    );
   }
 }
