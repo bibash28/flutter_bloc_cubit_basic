@@ -23,6 +23,22 @@ void main() {
       act: (cubit) => cubit.decrement(),
       expect: () => [equals(-1)],
     );
+
+    blocTest<CounterCubit, int>(
+      'Sequence of states',
+      build: () => CounterCubit(),
+      act: (cubit) => cubit
+        ..increment()
+        ..increment()
+        ..increment()
+        ..decrement(),
+      expect: () => [
+        equals(1),
+        equals(2),
+        equals(3),
+        equals(2),
+      ],
+    );
   });
 
   group('whenListen', () {
